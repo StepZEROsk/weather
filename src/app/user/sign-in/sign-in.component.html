@@ -1,0 +1,39 @@
+<div class="s0-sign-in">
+  <h1 class="s0-title-1 mb-4"><span class="tc-1">Sing</span><span class="tc-2 ml-2">In</span></h1>
+  <form (submit)="loginInput.valid && passwordInput.valid && singIn()">
+    <input
+      class="s0-text-input"
+      name="login"
+      type="email"
+      placeholder="E-mail"
+      spellcheck="false"
+      autocomplete="off"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      required
+      [(ngModel)]="login"
+      #loginInput="ngModel"
+    >
+    <ng-container *ngIf="!loginInput.pristine">
+      <div *ngIf="loginInput.errors?.required" class="fs-2 fw-3 tc-d mt-2">Login is required</div>
+      <div *ngIf="loginInput.errors?.pattern" class="fs-2 fw-3 tc-d mt-2">Login must be a valid e-mail</div>
+    </ng-container>
+    <input
+      class="s0-text-input mt-2"
+      name="password"
+      type="password"
+      placeholder="Password"
+      required
+      [(ngModel)]="password"
+      #passwordInput="ngModel"
+    >
+    <div *ngIf="passwordInput.touched && passwordInput.errors?.required" class="fs-2 fw-3 tc-d mt-2">Password is required</div>
+    <div class="fx mt-2">
+      <button
+        class="s0-button ml-a"
+        [class.s0-button--disabled]="loginInput.invalid || passwordInput.invalid"
+        [disabled]="loginInput.invalid || passwordInput.invalid"
+        type="submit"
+      >Sign In</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,28 @@
+.s0-button {
+  display: flex;
+  align-items: center;
+  background-color: var(--s0-color-primary);
+  color: var(--s0-color-white);
+  font-size: var(--s0-font-size-2);
+  font-weight: 600;
+  height: 38px;
+  padding: 0 var(--s0-padding-4);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+.s0-button--disabled {
+  background-color: var(--s0-color-gray-20p);
+  cursor: default;
+}
+
+.s0-button--color-danger {
+  background-color: var(--s0-color-danger);
+}
+
+.s0-button--color-warning {
+  background-color: var(--s0-color-warning);
+}

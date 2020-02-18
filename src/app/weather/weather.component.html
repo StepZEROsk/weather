@@ -1,0 +1,72 @@
+<div class="s0-weather">
+  <div class="fx">
+    <button class="s0-button ml-a" (click)="singOut()">Sign Out</button>
+  </div>
+
+  <h1 class="s0-title-1 mb-6"><span class="tc-1">Compare</span><span class="tc-2 ml-2">Weather</span></h1>
+
+  <form [formGroup]="weatherForm" (submit)="getWeather()" autocomplete="off">
+    <div formArrayName="locations">
+      <div class="fx mb-2" [formGroupName]="i" *ngFor="let location of locations.controls; let i=index">
+        <div class="fw-3">{{i + 1}}.</div>
+        <input
+          class="s0-text-input s0-text-input--size-md ml-4"
+          [class.s0-text-input--invalid]="location.get('city').touched && location.get('city').invalid"
+          name="city"
+          type="text"
+          spellcheck="false"
+          autocomplete="off"
+          placeholder="City"
+          formControlName="city"
+        >
+        <input
+          class="s0-text-input s0-text-input--size-md ml-4"
+          [class.s0-text-input--invalid]="location.get('zip').touched && location.get('zip').invalid"
+          name="zip"
+          type="text"
+          spellcheck="false"
+          autocomplete="off"
+          placeholder="ZIP"
+          formControlName="zip"
+        >
+        <input
+          class="s0-text-input s0-text-input--size-md ml-4"
+          [class.s0-text-input--invalid]="location.get('country').touched && location.get('country').invalid"
+          name="country"
+          type="text"
+          spellcheck="false"
+          autocomplete="off"
+          placeholder="Country"
+          formControlName="country"
+        >
+        <a
+          class="s0-button s0-button--color-warning ml-4"
+          (click)="decreaseLocation()"
+          *ngIf="locations.length > 2 && locations.length === i+1">Remove</a>
+      </div>
+    </div>
+    <div class="fx mt-4">
+      <a
+        class="s0-button"
+        [class.s0-button--disabled]="locations.length >= 5"
+        (click)="locations.length < 5 && addLocation()"
+      >Add location</a>
+      <button
+        class="s0-button ml-4"
+        [class.s0-button--disabled]="!weatherForm.valid"
+        type="submit"
+        [disabled]="!weatherForm.valid"
+      >Get weather</button>
+    </div>
+  </form>
+  <div class="fx mt-6" *ngIf="!error">
+    <div class="mr-4 fs-3 w-15p" *ngFor="let item of weather">
+      <div class="fw-3">{{ item.cityName}}, {{ item.countryCode }}</div>
+      <div class="mt-4"><img [src]="'http://openweathermap.org/img/w/' + item.icon + '.png'"></div>
+      <div class="mb-4 fw-3 tc-1">{{ item.weather }}</div>
+      <div>Temp: <span class="fw-3">{{ item.temp }} °C</span></div>
+      <div>Wind: <span class="fw-3">{{ item.wind }} m/s</span></div>
+    </div>
+  </div>
+  <div class="tc-2 fw-3 mt-6" *ngIf="error">{{ error }}</div>
+</div>
